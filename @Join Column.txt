@@ -1,0 +1,37 @@
+@Entity
+public class Office {
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "addressId")
+    private Address address;
+}
+
+
+@Entity
+public class Employee {
+  
+    @Id
+    private Long id;
+ 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
+    private List<Email> emails;
+}
+ 
+@Entity
+public class Email {
+  
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+}
+
+
+@Entity
+public class Office {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumns({
+        @JoinColumn(name="ADDR_ID", referencedColumnName="ID"),
+        @JoinColumn(name="ADDR_ZIP", referencedColumnName="ZIP")
+    })
+    private Address address;
+}
+

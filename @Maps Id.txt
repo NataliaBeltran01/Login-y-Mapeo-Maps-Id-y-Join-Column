@@ -1,0 +1,218 @@
+Entidad 1
+package com.thejavageek.jpa.entities;
+
+import java.io.Serializable;
+import java.lang.String;
+import javax.persistence.*;
+
+
+@Entity
+public class Employee implements Serializable {
+
+	@Id
+	@TableGenerator(name = "employee_gen", table = "id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", allocationSize = 1)
+	@GeneratedValue(generator = "employee_gen", strategy = GenerationType.TABLE)
+	private int idEmployee;
+	private String name;
+	
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getIdEmployee() {
+		return idEmployee;
+	}
+
+	public void setIdEmployee(int idEmployee) {
+		this.idEmployee = idEmployee;
+	}
+	
+      // equals and hashcode implementation here
+}
+Entidad 2
+
+package com.thejavageek.jpa.entities;
+ 
+import java.io.Serializable;
+import java.lang.String;
+import javax.persistence.*;
+ 
+ 
+@Entity
+public class Employee implements Serializable {
+ 
+	@Id
+	@TableGenerator(name = "employee_gen", table = "id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", allocationSize = 1)
+	@GeneratedValue(generator = "employee_gen", strategy = GenerationType.TABLE)
+	private int idEmployee;
+	private String name;
+	
+	public String getName() {
+		return this.name;
+	}
+ 
+	public void setName(String name) {
+		this.name = name;
+	}
+ 
+	public int getIdEmployee() {
+		return idEmployee;
+	}
+ 
+	public void setIdEmployee(int idEmployee) {
+		this.idEmployee = idEmployee;
+	}
+	
+      // equals and hashcode implementation here
+}
+ DependId Embeddable:
+package com.thejavageek.jpa.entities;
+
+import java.io.Serializable;
+
+import javax.persistence.Embeddable;
+
+@Embeddable
+public class DependentId implements Serializable {
+
+	String name;
+	int empId;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
+
+        // equals and hashcode implementation here
+}
+
+Entidad 3
+
+package com.thejavageek.jpa.entities;
+ 
+import java.io.Serializable;
+ 
+import javax.persistence.Embeddable;
+ 
+@Embeddable
+public class DependentId implements Serializable {
+ 
+	String name;
+	int empId;
+ 
+	public String getName() {
+		return name;
+	}
+ 
+	public void setName(String name) {
+		this.name = name;
+	}
+ 
+	public int getEmpId() {
+		return empId;
+	}
+ 
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
+ 
+        
+}
+
+
+Entidad 4:
+
+package com.thejavageek.jpa.entities;
+
+import java.io.Serializable;
+
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+
+@Entity
+public class Dependent implements Serializable {
+
+	@EmbeddedId
+	private DependentId id;
+
+	@ManyToOne
+	@MapsId("empId")
+	@JoinColumn(name = "EMPLOYEE_ID")
+	private Employee employee;
+
+	public DependentId getId() {
+		return id;
+	}
+
+	public void setId(DependentId id) {
+		this.id = id;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+	// equals and hashcode implementation
+}
+
+Entidad 5
+
+package com.thejavageek.jpa.entities;
+ 
+import java.io.Serializable;
+ 
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+ 
+@Entity
+public class Dependent implements Serializable {
+ 
+	@EmbeddedId
+	private DependentId id;
+ 
+	@ManyToOne
+	@MapsId("empId")
+	@JoinColumn(name = "EMPLOYEE_ID")
+	private Employee employee;
+ 
+	public DependentId getId() {
+		return id;
+	}
+ 
+	public void setId(DependentId id) {
+		this.id = id;
+	}
+ 
+	public Employee getEmployee() {
+		return employee;
+	}
+ 
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+	// equals and hashcode implementation
+}
